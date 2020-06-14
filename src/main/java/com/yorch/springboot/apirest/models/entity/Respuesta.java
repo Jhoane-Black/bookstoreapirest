@@ -10,9 +10,14 @@ public class Respuesta implements Serializable{
     private int codigo;
     private String mensaje;
     private Object data;
+
+    public static Respuesta SUCCESS = new Respuesta(200, "task success", null);
+    public static Respuesta ERROR = new Respuesta(400, "ERROR", null);
+
     public int getCodigo() {
         return codigo;
     }
+
     public Respuesta(){}
 
     public Respuesta(int codigo, String mensaje, Object data) {

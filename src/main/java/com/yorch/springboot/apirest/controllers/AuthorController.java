@@ -24,6 +24,14 @@ public class AuthorController {
             ERROR.setMensaje("data not found");
             return ERROR;
         }
+        
+    @PutMapping("/update/{id}")
+    public @ResponseBody Respuesta updateAuthor (@RequestBody Author author, @PathVariable int id) {
+        Author toEdit = iAuthorService.findById(id);
+        if (toEdit == null) {
+            ERROR.setCodigo(400);
+            return ERROR;
+        }
 
         SUCCESS.setData(iAuthorService.save(author));
         SUCCESS.setMensaje("data saved");

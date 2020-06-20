@@ -26,7 +26,7 @@ public class Orden implements Serializable {
     private Date ord_pay_day;
 
     @Enumerated(EnumType.STRING)
-    private String status;
+    private OrdenStatus status;
 
     public Orden() {
     }
@@ -71,11 +71,11 @@ public class Orden implements Serializable {
         this.ord_pay_day = ord_pay_day;
     }
 
-    public String getStatus() {
+    public OrdenStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrdenStatus status) {
         this.status = status;
     }
 }

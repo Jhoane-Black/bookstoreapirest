@@ -41,6 +41,7 @@ public class ClientResController {
 			GenericResponseVO.status(401);
 			return ERROR;
 		}
+		SUCCESS.setData(u);
 		return SUCCESS;
 	}
 	

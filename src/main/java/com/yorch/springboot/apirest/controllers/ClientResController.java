@@ -62,6 +62,14 @@ public class ClientResController {
 		Client c = usuarioService.save(client);
 		return c.getCli_id()!= 0 ? new Respuesta(201, "", c) : new Respuesta(401, "Client not saved", null);
 	}
+	
+	@PutMapping("/update/{id}")
+   	public @ResponseBody Respuesta updateClient (@RequestBody Client client, @PathVariable int id) {
+        Client toEdit = usuarioService.findById(id);
+        if (toEdit == null) {
+            ERROR.setCodigo(400);
+            return ERROR;
+        }
 //	@PutMapping("/login/{id}")
 //	@ResponseStatus(HttpStatus.CREATED)
 //	public Respuesta update(@RequestBody Client client, @PathVariable int id) {

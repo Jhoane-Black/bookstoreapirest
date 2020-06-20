@@ -25,6 +25,14 @@ public class GenereController {
             ERROR.setMensaje("data not found");
             return ERROR;
         }
+        
+    @PutMapping("/update/{id}")
+    public @ResponseBody Respuesta updateGenere (@RequestBody Genere genere, @PathVariable int id) {
+        Genere toEdit = iGenereService.findById(id);
+        if (toEdit == null) {
+            ERROR.setCodigo(400);
+            return ERROR;
+        }
 
         SUCCESS.setData(iGenereService.save(g));
         SUCCESS.setCodigo(201);

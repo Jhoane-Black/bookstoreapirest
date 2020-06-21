@@ -2,13 +2,7 @@ package com.yorch.springboot.apirest.controllers;
 
 import com.yorch.springboot.apirest.util.GenericResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.yorch.springboot.apirest.models.entity.*;
 
@@ -16,8 +10,8 @@ import com.yorch.springboot.apirest.models.service.*;
 
 import java.util.List;
 
-import static com.yorch.springboot.apirest.util.GenericResponseVO.ERROR;
-import static com.yorch.springboot.apirest.util.GenericResponseVO.SUCCESS;
+import static com.yorch.springboot.apirest.models.entity.Respuesta.ERROR;
+import static com.yorch.springboot.apirest.models.entity.Respuesta.SUCCESS;
 
 
 @CrossOrigin(origins =  "*" ,allowedHeaders="*")
@@ -35,7 +29,7 @@ public class ClientResController {
 	}
 
 	@PostMapping("/login")
-	public GenericResponseVO validation(@RequestBody Client client) {
+	public Respuesta validation(@RequestBody Client client) {
 		Client u = usuarioService.findbyUP(client.getCli_email(), client.getCli_pass());
 		if (u == null) {
 			GenericResponseVO.status(401);
@@ -43,11 +37,6 @@ public class ClientResController {
 		}
 		SUCCESS.setData(u);
 		return SUCCESS;
-	}
-	
-	@GetMapping("/login")
-	public Respuesta getAll() {
-		return usuarioService.findAll();
 	}
 	
 	@GetMapping("/login/{id}")
@@ -65,11 +54,13 @@ public class ClientResController {
 	
 	@PutMapping("/update/{id}")
    	public @ResponseBody Respuesta updateClient (@RequestBody Client client, @PathVariable int id) {
-        Client toEdit = usuarioService.findById(id);
-        if (toEdit == null) {
-            ERROR.setCodigo(400);
-            return ERROR;
-        }
+		Client toEdit = usuarioService.findById(id);
+		if (toEdit == null) {
+			ERROR.setCodigo(400);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 //	@PutMapping("/login/{id}")
 //	@ResponseStatus(HttpStatus.CREATED)
 //	public Respuesta update(@RequestBody Client client, @PathVariable int id) {

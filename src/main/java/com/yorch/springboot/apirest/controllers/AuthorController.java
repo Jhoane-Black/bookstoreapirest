@@ -19,11 +19,17 @@ public class AuthorController {
     @PostMapping("/create")
     public Respuesta createAuthor(@RequestBody Author author) {
 
-        if (author == null ) {
+        if (author == null) {
             ERROR.setCodigo(400);
             ERROR.setMensaje("data not found");
             return ERROR;
         }
+
+        iAuthorService.save(author);
+        SUCCESS.setData(author);
+        SUCCESS.setCodigo(201);
+        return SUCCESS;
+    }
         
     @PutMapping("/update/{id}")
     public @ResponseBody Respuesta updateAuthor (@RequestBody Author author, @PathVariable int id) {
@@ -36,6 +42,12 @@ public class AuthorController {
         SUCCESS.setData(iAuthorService.save(author));
         SUCCESS.setMensaje("data saved");
         SUCCESS.setCodigo(201);
+        return SUCCESS;
+    }
+
+    @GetMapping("/list")
+    public Respuesta listAuthor() {
+        SUCCESS.setData(this.iAuthorService.findAll());
         return SUCCESS;
     }
 }

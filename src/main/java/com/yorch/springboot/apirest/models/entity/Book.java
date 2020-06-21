@@ -1,5 +1,6 @@
 package com.yorch.springboot.apirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -20,23 +21,25 @@ public class Book implements Serializable {
     private double book_price_dis;
 
     @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.REFRESH})
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "genere_has_book",
             joinColumns = @JoinColumn(name = "gxb_book_id"),
             inverseJoinColumns = @JoinColumn(name = "gxb_gen_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"gxb_book_id", "gxb_gen_id"})}
     )
+    @JsonIgnore
     private Set<Genere> generes = new HashSet();
 
     @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.REFRESH})
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_has_author",
             joinColumns = @JoinColumn(name = "book_book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_aut_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"book_book_id", "author_aut_id"})}
     )
+    @JsonIgnore
     private Set<Author> authors = new HashSet<>();
 
 

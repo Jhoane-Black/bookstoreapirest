@@ -25,6 +25,8 @@ public class GenereController {
             ERROR.setMensaje("data not found");
             return ERROR;
         }
+        return SUCCESS;
+    }
         
     @PutMapping("/update/{id}")
     public @ResponseBody Respuesta updateGenere (@RequestBody Genere genere, @PathVariable int id) {
@@ -34,7 +36,7 @@ public class GenereController {
             return ERROR;
         }
 
-        SUCCESS.setData(iGenereService.save(g));
+//        SUCCESS.setData(iGenereService.save(g));
         SUCCESS.setCodigo(201);
         SUCCESS.setMensaje("data saved");
         return SUCCESS;
